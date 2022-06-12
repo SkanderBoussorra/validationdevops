@@ -38,4 +38,12 @@ public class Category {
 	public Category() {
 	}
 
+	@Override
+	public String toString() {
+		return "Category{" +
+				"id=" + id +
+				", nom='" + nom + '\'' +
+				", description='" + description + '\'' +
+				'}';
+	}
 }

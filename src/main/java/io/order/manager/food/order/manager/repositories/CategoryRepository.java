@@ -16,5 +16,5 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Modifying
     @Transactional
     @Query("UPDATE Category c SET c.nom=:nom1 where c.id=:categoryID")
-    public void mettreAjourEmailByEmployeIdJPQL(@Param("nom1")String email, @Param("categoryID")Long categoryID);
+    public void ModifierNomCategorieParID(@Param("nom1")String email, @Param("categoryID")Long categoryID);
 }

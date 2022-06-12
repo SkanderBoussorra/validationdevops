@@ -10,12 +10,12 @@ public interface CategoryService {
      CategoryDTO save(CategoryDTO cat);
      String delete(Long id);
      void update(Long id, CategoryDTO categoryDTO);
-     List<String> getAllCatNamesJPQL();
-     List<Category> getAllEmployes();
-     Long ajouterEmploye(Category category);
-     void mettreAjourEmailByEmployeId(String nom, Long CategoryID);
 
+     /* -------------------------------------------------*/
+     List<String> NomsCategories();
+     List<Category> ListCategories();
+     Long AjouterCategorie(Category category);
+     void ModifierNomCategorie(String nom, Long CategoryID);
 
-
-
+     void SupprimerCategorie(Long categorieID);
 }
