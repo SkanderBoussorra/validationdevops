@@ -35,7 +35,7 @@ public class CategoryRessources {
         categoryService.update(id, categoryDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+/*
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     // Delete category
@@ -43,5 +43,15 @@ public class CategoryRessources {
         categoryService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+ */
+@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+@ResponseStatus(HttpStatus.OK)
+// Delete category
+public ResponseEntity<String> deletecategory(@PathVariable(value = "id") Long id) {
+    categoryService.SupprimerCategorie(id);
+    return new ResponseEntity<>(HttpStatus.OK);
+}
+
 
 }

@@ -32,7 +32,7 @@ public class CategoryServicesImpTest {
     @Test
     public void TestAjouterCategorie() throws ParseException {
 
-        Category cat = new Category("skon", "skon");
+        Category cat = new Category("skander", "skander");
         Long catId = categorySerImp.AjouterCategorie(cat);
 
         //assertEquals("check ajout employé ",employeId);

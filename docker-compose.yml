@@ -1,23 +1,35 @@
-version: '3'
+version: "3.8"
 services:
- mysql-standalone:
-  image: 'mysql:5.7'
-  environment:
-   - MYSQL_ROOT_PASSWORD=root
-   - MYSQL_PASSWORD=root
-   - MYSQL_DATABASE=restaurant
-  ports:
-   - "3307:3306"
- springboot-docker-container:
-  image: springboot-docker-container
-  ports:
-   - "8547:8547"
-  environment:
-   SPRING_DATASOURCE_URL: jdbc:mysql://mysql-standalone:3306/restaurant?autoReconnect=true&useSSL=false
-   SPRING_DATASOURCE_USERNAME: "root"
-   SPRING_DATASOURCE_PASSWORD: "root"
-  build:
-   context: "./"
-   dockerfile: "Dockerfile"
-  depends_on:
-   - mysql-standalone
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=restaurant
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+  app:
+    depends_on:
+      - mysqldb
+    build: ./
+    restart: on-failure
+    env_file: ./.env
+    ports:
+      - 8547:8547
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url" :"jdbc:mysql://mysqldb:3306/restaurant?useSSL=false",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "root",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+    }'
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+volumes:
+  db:
